@@ -1,0 +1,11 @@
+# 不入库：原书扫描件、脚本、草稿、旧 demo
+*.pdf
+assets/
+*.py
+translations.tsv
+wordlist_dump.txt
+vocab_*.json
+demo-*.html
+KET英语游戏开发文档.md
+章节设计-*.md
+.DS_Store

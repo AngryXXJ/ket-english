@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 1 课 · An Unusual Visitor — KET 阅读课</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#666; --accent:#0b6e4f; --accent2:#b3541e; --paper:#fffdf8; }
+  *{ box-sizing:border-box; }
+  body{ font-family:Georgia,'Songti SC','SimSun',serif; background:var(--paper); color:var(--ink);
+        max-width:760px; margin:0 auto; padding:32px 22px 80px; line-height:1.75; font-size:16.5px; }
+  h1{ font-size:1.9em; margin:.2em 0; letter-spacing:.5px; }
+  h2{ font-size:1.25em; margin:2.2em 0 .6em; padding-top:.6em; border-top:2px solid var(--ink);
+      display:flex; align-items:baseline; gap:10px; }
+  h2 .step{ font-size:.72em; color:#fff; background:var(--ink); border-radius:4px; padding:2px 8px; font-family:-apple-system,sans-serif; }
+  .meta{ color:var(--muted); font-size:.85em; font-family:-apple-system,sans-serif; }
+  .en{ font-family:Georgia,serif; }
+  .zh{ color:#444; }
+  .card{ border:1px solid #ddd; border-radius:8px; padding:14px 18px; margin:10px 0; background:#fff; }
+  .word{ font-weight:bold; font-size:1.15em; }
+  .word .pos{ color:var(--muted); font-weight:normal; font-size:.8em; margin-left:6px; }
+  .hidden{ color:transparent; text-shadow:0 0 8px rgba(0,0,0,.35); cursor:pointer; user-select:none;
+           border-bottom:1px dashed #aaa; transition:.2s; }
+  .hidden.show{ color:inherit; text-shadow:none; border-bottom-color:transparent; }
+  .article{ font-size:1.08em; background:#fff; border:1px solid #ddd; border-radius:8px; padding:22px 26px; }
+  .article h3{ margin-top:0; font-size:1.4em; }
+  .article .byline{ color:var(--muted); font-style:italic; margin-top:-.8em; }
+  .sent{ cursor:pointer; border-radius:3px; padding:1px 2px; transition:background .15s; }
+  .sent:hover{ background:#f0ead8; }
+  .sent.marked{ background:#ffe9a8; }
+  .sent.key{ background:#cdeedd; }
+  .btn{ font-family:-apple-system,sans-serif; font-size:.9em; border:1px solid var(--ink); background:#fff;
+        border-radius:6px; padding:5px 14px; cursor:pointer; margin-right:8px; }
+  .btn:hover{ background:var(--ink); color:#fff; }
+  .fb{ font-family:-apple-system,sans-serif; font-size:.92em; min-height:1.6em; margin:8px 0; }
+  .fb.ok{ color:var(--accent); } .fb.no{ color:var(--accent2); }
+  .quiz-opt{ display:block; border:1px solid #ccc; border-radius:6px; padding:8px 14px; margin:6px 0;
+             cursor:pointer; background:#fff; font-family:Georgia,serif; }
+  .quiz-opt:hover{ border-color:var(--ink); }
+  .quiz-opt.right{ background:#cdeedd; border-color:var(--accent); }
+  .quiz-opt.wrong{ background:#f6d9c8; border-color:var(--accent2); }
+  .gap{ display:inline-block; min-width:90px; border:none; border-bottom:2px solid var(--ink); background:transparent;
+        font:inherit; text-align:center; padding:0 4px; }
+  .gap:focus{ outline:none; border-bottom-color:var(--accent); }
+  .note{ background:#f4f1e6; border-left:4px solid var(--accent); padding:10px 16px; margin:14px 0; font-size:.95em; }
+  .q-num{ font-family:-apple-system,sans-serif; font-weight:bold; color:var(--muted); }
+  footer{ margin-top:60px; padding-top:14px; border-top:1px solid #ccc; color:var(--muted); font-size:.82em; font-family:-apple-system,sans-serif; }
+  @media print{ .btn,.fb{ display:none; } .hidden{ color:inherit; text-shadow:none; } body{ font-size:12.5px; } }
+</style>
+</head>
+<body>
+
+<p class="meta">KET 备考 · 阅读课 0001 · 素材来源：《KET全真模拟试题》Test 1 · Reading Part 3（真题原文）</p>
+<h1>An Unusual Visitor <span class="zh" style="font-size:.55em">不寻常的访客</span></h1>
+<p class="zh">一只帝企鹅迷路了，游到了几千英里外的新西兰海滩。今天我们把这篇真题新闻彻底读懂。</p>
+
+<!-- ================= 第一步：单词 ================= -->
+<h2><span class="step">第一步</span>单词：先认识这 8 个词</h2>
+<p class="zh">点开卡片看意思和例句；看完点「考考我」自己拼一遍。</p>
+<div id="words"></div>
+<button class="btn" onclick="revealAll()">全部翻开</button>
+<button class="btn" onclick="spellQuiz()">考考我（拼写）</button>
+<div class="fb" id="wfb"></div>
+
+<!-- ================= 第二步：阅读 ================= -->
+<h2><span class="step">第二步</span>阅读：划出关键句</h2>
+<p class="zh"><b>任务：</b>带着下面的 5 个问题读文章。<b>读到能回答问题的句子，就点它一下，把它划出来。</b>文章不会替你标——自己找。</p>
+<div class="note">
+  <b>读之前先看问题：</b>
+  <ol style="margin:.4em 0 0">
+    <li>为什么这只企鹅的到来是个大新闻？</li>
+    <li>发现企鹅的女士当时在做什么？</li>
+    <li>专家认为企鹅为什么会出现在这里？</li>
+    <li>游客被要求做什么？</li>
+    <li>帝企鹅这种动物有什么特点？</li>
+  </ol>
+</div>
+<div class="article en" id="article">
+  <h3>An unusual visitor</h3>
+  <p class="byline">by Tom Smith</p>
+  <p id="p1"></p>
+  <p id="p2"></p>
+  <p id="p3"></p>
+  <p id="p4"></p>
+</div>
+<p>
+  <button class="btn" onclick="hint()">提示（哪一段找）</button>
+  <button class="btn" onclick="showKeys()">我划完了，对答案</button>
+  <button class="btn" onclick="resetMarks()">重划</button>
+</p>
+<div class="fb" id="rfb"></div>
+
+<!-- ================= 第三步：语法 ================= -->
+<h2><span class="step">第三步</span>语法：现在完成时 —— 「到现在为止的经历」</h2>
+<div class="card">
+  <p class="zh">文章第一句藏着一个重要语法点：</p>
+  <p class="en" style="font-size:1.15em;text-align:center"><b>It's the first time people <u>have seen</u> an emperor penguin in New Zealand in 44 years.</b></p>
+  <p class="zh"><b>have / has + 动词过去分词</b>（have seen / have done / has brought）表示「到现在为止发生过的事」，常和 <i>the first time、ever、never、already</i> 连用。<br>
+  对比：一般过去时 <i>people saw</i> 只说「过去某时看见了」；现在完成时 <i>people have seen</i> 强调「到今天为止有过这个经历」。</p>
+</div>
+<p class="zh"><b>练一练：</b>选出正确的句子。</p>
+<div id="grammar"></div>
+<div class="fb" id="gfb"></div>
+
+<!-- ================= 第四步：测试 ================= -->
+<h2><span class="step">第四步</span>测试：真题 Q14–18</h2>
+<p class="zh">这就是试卷上的原题。你划出的关键句里就有答案。</p>
+<div id="exam"></div>
+<div class="fb" id="efb"></div>
+
+<footer>
+  <p>课文出处：《KET 全真模拟试题》Test 1 · Paper 1 Reading Part 3（Q14–18）。配套速查：reference/vocab-animals-nature.html（待建）。</p>
+  <p>有任何一句没读懂，随时问 Kimi——它是你的陪读老师。</p>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+
+/* ---------- 单词 ---------- */
+const WORDS=[
+ {w:'unusual', pos:'adj.', zh:'不寻常的', eg:'It\u2019s quite unusual to see a penguin in New Zealand.', egzh:'在新西兰看到企鹅是很不寻常的。'},
+ {w:'emperor penguin', pos:'n.', zh:'帝企鹅（最大的企鹅）', eg:'Emperor penguins are the tallest and largest of the penguin species.', egzh:'帝企鹅是所有企鹅种类中最高、最大的。'},
+ {w:'beach', pos:'n.', zh:'海滩', eg:'A young penguin arrived on a beach in New Zealand.', egzh:'一只小企鹅来到了新西兰的一处海滩。'},
+ {w:'get lost', pos:'phr.', zh:'迷路', eg:'The young penguin got lost while hunting for fish.', egzh:'这只小企鹅在捕鱼时迷了路。'},
+ {w:'curious', pos:'adj.', zh:'好奇的', eg:'This strange visitor has brought many curious people to the beach.', egzh:'这位奇怪的访客把许多好奇的人带到了海滩。'},
+ {w:'upset', pos:'v.', zh:'打扰、使不安', eg:'Everyone is asked not to upset the penguin in any way.', egzh:'所有人被要求不得以任何方式打扰这只企鹅。'},
+ {w:'species', pos:'n.', zh:'物种（单复数同形）', eg:'Emperor penguins are the tallest of the penguin species.', egzh:'帝企鹅是企鹅物种中最高的。'},
+ {w:'weigh', pos:'v.', zh:'重达……', eg:'They grow up to 122 cm tall and weigh more than 40 kg.', egzh:'它们能长到 122 厘米高，体重超过 40 公斤。'},
+];
+$('#words').innerHTML = WORDS.map((x,i)=>`
+ <div class="card">
+   <span class="word en">${x.w}</span><span class="pos">${x.pos}</span>
+   <span class="hidden zh" id="wz${i}" onclick="this.classList.add('show')" style="margin-left:10px">${x.zh}</span>
+   <div class="en" style="margin-top:6px"><span class="hidden" id="we${i}" onclick="this.classList.add('show')">${x.eg}</span></div>
+   <div class="hidden zh" id="wc${i}" onclick="this.classList.add('show')" style="font-size:.9em">${x.egzh}</div>
+ </div>`).join('');
+function revealAll(){ document.querySelectorAll('.hidden').forEach(e=>e.classList.add('show')); }
+function spellQuiz(){
+  const i=Math.floor(Math.random()*WORDS.length), x=WORDS[i];
+  const box=$('#wfb'); box.className='fb';
+  box.innerHTML=`这个词的意思是「${x.zh}」，请拼出来：<input class="gap en" id="win"> <button class="btn" id="wgo">确定</button>`;
+  $('#wgo').onclick=()=>{
+    const v=$('#win').value.trim().toLowerCase();
+    if(v===x.w.toLowerCase()){ box.className='fb ok'; box.innerHTML=`✅ 对了！<b class="en">${x.w}</b> = ${x.zh}`; setTimeout(spellQuiz,1400); }
+    else{ box.className='fb no'; box.innerHTML=`❌ 再想想。提示：${x.w.length} 个字母，开头是 <b class="en">${x.w[0]}</b>。 <button class="btn" id="wre">重试</button>`; $('#wre').onclick=spellQuiz; }
+  };
+  $('#win').focus();
+}
+
+/* ---------- 阅读：划重点 ---------- */
+const SENTS=[
+ // 段落1
+ {t:'A young emperor penguin from the Antarctic arrived on a beach in New Zealand yesterday.', key:false, para:1},
+ {t:'It\u2019s the first time people have seen an emperor penguin in New Zealand in 44 years.', key:true, q:'为什么是大新闻', para:1},
+ // 段落2
+ {t:'A woman who was walking her dog on the beach saw something white on the sand.', key:true, q:'女士当时在做什么', para:2},
+ {t:'At first, she thought it was a child\u2019s toy, but when she got closer, she saw the young penguin standing there on the beach.', key:false, para:2},
+ {t:'She couldn\u2019t believe her eyes!', key:false, para:2},
+ // 段落3
+ {t:'Experts say it\u2019s quite unusual to see a penguin in New Zealand.', key:false, para:3},
+ {t:'They believe that the young penguin got lost while hunting for fish and is now thousands of miles from home.', key:true, q:'企鹅为什么在这里', para:3},
+ // 段落4
+ {t:'This strange visitor has brought many curious people to the beach.', key:false, para:4},
+ {t:'Everyone is asked not to upset the penguin in any way and to keep their dogs on leads.', key:true, q:'游客被要求做什么', para:4},
+ {t:'The penguin is about 10 months old and 80 cm tall.', key:false, para:4},
+ {t:'Emperor penguins are the tallest and largest of the penguin species.', key:true, q:'帝企鹅的特点', para:4},
+ {t:'They grow up to 122 cm tall and weigh more than 40 kg.', key:false, para:4},
+];
+[1,2,3,4].forEach(p=>{
+  $('#p'+p).innerHTML = SENTS.map((s,i)=> s.para===p ? `<span class="sent" data-i="${i}">${s.t}</span> ` : '').join('');
+});
+document.querySelectorAll('.sent').forEach(el=>el.onclick=()=>{ el.classList.toggle('marked'); });
+function hint(){
+  const f=$('#rfb'); f.className='fb';
+  f.innerHTML='提示：第 1 题看第 1 段；第 2 题看第 2 段开头；第 3 题看第 3 段 Experts 那句的后面；第 4 题找有 asked 的那句；第 5 题找有 tallest 的那句。';
+}
+function showKeys(){
+  document.querySelectorAll('.sent').forEach(el=>{ if(SENTS[+el.dataset.i].key) el.classList.add('key'); });
+  const marked=[...document.querySelectorAll('.sent.marked')].map(el=>+el.dataset.i);
+  const hit=SENTS.map((s,i)=>i).filter(i=>SENTS[i].key && marked.includes(i)).length;
+  const f=$('#rfb');
+  f.className='fb '+(hit===5?'ok':'no');
+  f.innerHTML=`关键句共 5 句，你划中了 ${hit} 句。绿色 = 关键句。` +
+    (hit<5?'<br>再读一遍绿色的句子，想想它回答了哪个问题。':'<br>全部找齐了！接下来做语法和真题。');
+}
+function resetMarks(){ document.querySelectorAll('.sent').forEach(el=>el.classList.remove('marked','key')); $('#rfb').innerHTML=''; }
+
+/* ---------- 语法练习 ---------- */
+const GRAM=[
+ {q:'This is the first time I ___ a real penguin.', opts:['see','saw','have seen'], a:2,
+  why:'「It\u2019s the first time + 现在完成时」是固定句型：到目前为止的第一次经历。'},
+ {q:'My family ___ never ___ to New Zealand.', opts:['has / been','have / been','did / go'], a:1,
+  why:'never 常和现在完成时连用；主语 family 这里指一家人（复数概念），用 have been。'},
+];
+$('#grammar').innerHTML = GRAM.map((g,gi)=>`
+ <div class="card"><p class="en">${gi+1}. ${g.q.replace('___','<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</p>
+ ${g.opts.map((o,oi)=>`<span class="quiz-opt en" data-g="${gi}" data-o="${oi}" style="display:inline-block;margin-right:8px;min-width:130px">${o}</span>`).join('')}
+ <div class="fb" id="gf${gi}"></div></div>`).join('');
+document.querySelectorAll('.quiz-opt[data-g]').forEach(el=>el.onclick=()=>{
+  const g=GRAM[+el.dataset.g], gi=+el.dataset.g, f=$('#gf'+gi);
+  if(+el.dataset.o===g.a){ el.classList.add('right'); f.className='fb ok'; f.innerHTML='✅ '+g.why; }
+  else{ el.classList.add('wrong'); f.className='fb no'; f.innerHTML='❌ 再想想「到现在为止」该用哪个时态。'; }
+});
+
+/* ---------- 真题测试 ---------- */
+const EXAM=[
+ {q:'Why was the penguin\u2019s visit a special event?',
+  opts:['The penguin travelled further than any other.','Emperor penguins don\u2019t come there very often.','It was the first time an emperor penguin came there.'], a:1, keyi:1},
+ {q:'The woman who saw the penguin was ___',
+  opts:['swimming in the sea.','taking her pet for a walk.','playing with her child on the sand.'], a:1, keyi:2},
+ {q:'Experts think the penguin ___',
+  opts:['wanted to leave its home.','came from an area close to New Zealand.','got lost while looking for food.'], a:2, keyi:6},
+ {q:'Visitors to the beach are asked to ___',
+  opts:['play with the penguin.','leave their dogs at home.','keep away from the penguin.'], a:2, keyi:8},
+ {q:'Emperor penguins ___',
+  opts:['stop growing after 10 months.','are bigger than other types of penguins.','don\u2019t grow taller than 80 cm.'], a:1, keyi:10},
+];
+$('#exam').innerHTML = EXAM.map((x,xi)=>`
+ <div class="card"><p class="en"><span class="q-num">${14+xi}.</span> ${x.q}</p>
+ ${x.opts.map((o,oi)=>`<span class="quiz-opt en" data-x="${xi}" data-o="${oi}">${'ABC'[oi]}. ${o}</span>`).join('')}
+ <div class="fb" id="ef${xi}"></div></div>`).join('');
+let score=0;
+document.querySelectorAll('.quiz-opt[data-x]').forEach(el=>el.onclick=()=>{
+  const xi=+el.dataset.x, x=EXAM[xi], f=$('#ef'+xi);
+  if(f.dataset.done) return;
+  if(+el.dataset.o===x.a){
+    el.classList.add('right'); f.dataset.done=1; score++;
+    f.className='fb ok'; f.innerHTML='✅ 正确。';
+    document.querySelector(`.sent[data-i="${x.keyi}"]`)?.classList.add('key');
+    if(score===5){ $('#efb').className='fb ok'; $('#efb').innerHTML='🏆 5 题全对！这篇真题你真正读懂了。'; }
+  }else{
+    el.classList.add('wrong'); f.className='fb no';
+    f.innerHTML='❌ 回到文章，看你划出的关键句再选一次。';
+  }
+});
+</script>
+</body>
+</html>
